@@ -1,3 +1,7 @@
+$brand-color: hsla(352, 82%, 33%, 1);
+$text-color: hsla(0, 0%, 15%, 1);
+$background-color: #eee;
+
 /**
  * Reset some basic elements
  */
@@ -14,7 +18,7 @@ dl, dd, ol, ul, figure {
  * Basic styling
  */
 body {
-    font-family: $base-font-family;
+    font-family: 'Lora', serif;
     font-size: $base-font-size;
     line-height: $base-line-height;
     font-weight: 300;
@@ -23,7 +27,9 @@ body {
     -webkit-text-size-adjust: 100%;
 }
 
-
+h1, h2, h3, h4, h5, h6, .site-header {
+    font-family: 'Lato', sans-serif;
+}
 
 /**
  * Set `margin-bottom` to maintain vertical rhythm
