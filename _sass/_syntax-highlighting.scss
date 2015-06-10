@@ -2,6 +2,10 @@
  * Syntax highlighting styles
  */
 .highlight {
+    pre, code {
+        font-family: "Inconsolata" monospace;
+    }
+
     background: #fff;
     @extend %vertical-rhythm;
 
