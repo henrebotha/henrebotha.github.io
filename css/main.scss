@@ -3,19 +3,19 @@
 ---
 @charset "utf-8";
 
-
-
 // Our variables
-$base-font-family: Helvetica, Arial, sans-serif;
+$base-font-family: "Lora", serif;
+$heading-font-family: "Lato", sans-serif;
+$code-font-family: "Inconsolata" monospace;
 $base-font-size:   16px;
 $small-font-size:  $base-font-size * 0.875;
 $base-line-height: 1.5;
 
 $spacing-unit:     30px;
 
-$text-color:       #111;
-$background-color: #fdfdfd;
-$brand-color:      #2a7ae2;
+$text-color:       hsla(0, 0%, 15%, 1);
+$background-color: hsla(0, 0%, 93%, 1.0);
+$brand-color:      hsla(352, 82%, 33%, 1);
 
 $grey-color:       #828282;
 $grey-color-light: lighten($grey-color, 40%);
