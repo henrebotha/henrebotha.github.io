@@ -12,4 +12,4 @@ github_username:  henrebotha
 markdown: kramdown
 
 kramdown:
-	input: GFM
+  input: GFM
