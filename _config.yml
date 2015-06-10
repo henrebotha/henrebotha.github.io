@@ -4,9 +4,12 @@ email: ***REMOVED***
 description: > # this means to ignore newlines until "baseurl:"
   Learning while doing. The blog of Henré Botha
 baseurl: "" # the subpath of your site, e.g. /blog/
-url: "http://yourdomain.com" # the base hostname & protocol for your site
+url: "http://henrebotha.github.io" # the base hostname & protocol for your site
 twitter_username: henrebotha
 github_username:  henrebotha
 
 # Build settings
 markdown: kramdown
+
+kramdown:
+	input: GFM
