@@ -10,6 +10,3 @@ github_username:  henrebotha
 
 # Build settings
 markdown: kramdown
-
-kramdown:
-  input: GFM
