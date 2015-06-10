@@ -13,11 +13,12 @@ $base-line-height: 1.5;
 
 $spacing-unit:     30px;
 
-$text-color:       hsla(0, 0%, 15%, 1);
-$background-color: hsla(0, 0%, 93%, 1.0);
-$brand-color:      hsla(352, 82%, 33%, 1);
+$text-color:       hsla(0, 0%, 93%, 1.0);
+$background-color: hsla(0, 0%, 15%, 1);
+$brand-color:      hsla(63, 100%, 50%, 1.0);
 
-$grey-color:       #828282;
+$grey-color:       hsla(0, 0%, 50%, 1.0);
+$grey-color-border: darken($grey-color, 15%);
 $grey-color-light: lighten($grey-color, 40%);
 $grey-color-dark:  darken($grey-color, 25%);
 
@@ -26,8 +27,6 @@ $content-width:    800px;
 
 $on-palm:          600px;
 $on-laptop:        800px;
-
-
 
 // Using media queries with like this:
 // @include media-query($on-palm) {
@@ -41,8 +40,6 @@ $on-laptop:        800px;
         @content;
     }
 }
-
-
 
 // Import partials from `sass_dir` (defaults to `_sass`)
 @import
