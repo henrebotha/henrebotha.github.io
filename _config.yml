@@ -2,7 +2,7 @@
 title: Henré Botha
 email: ***REMOVED***
 description: > # this means to ignore newlines until "baseurl:"
-  Learning while doing. The blog of Henré Botha
+  Learning while doing. A blog.
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://henrebotha.github.io" # the base hostname & protocol for your site
 twitter_username: henrebotha
