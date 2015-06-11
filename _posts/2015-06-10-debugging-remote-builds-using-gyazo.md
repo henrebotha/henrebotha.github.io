@@ -16,17 +16,17 @@ Once you've registered at Gyazo, head [here](https://gyazo.com/oauth/application
 
 You'll need the gems `gyazo` and `slack-notifier` for this. Add each to your Gemfile, do `bundle install`, and then simply add the following to each spec file:
 
-{% highlight ruby %}
+```ruby
 after :each do |example|
     if ENV["SEMAPHORE"] and example.exception
         gyazo_screenshot(example)
     end
 end
-{% endhighlight %}
+```
 
 You can define the `gyazo_screenshot` method in `feature_helper.rb`:
 
-{% highlight ruby %}
+```ruby
 def gyazo_screenshot(example)
     gyazo = Gyazo::Client.new '99c2d9ae513cde365c25598fcd011cbcd882728d511dab61c2e38571c182c8c1' # your access token
     notifier = Slack::Notifier.new("https://hooks.slack.com/services/CaTd6YeRd/WDj7cfNOD/srwGKrg724rpMpnUQReE6dLP", username: 'Gyazo') # use your slack URL here
@@ -36,6 +36,6 @@ def gyazo_screenshot(example)
 
     notifier.ping "*Spec failed:* #{example.full_description}\n#{example.location}:\n>#{example.exception}\n<#{res['permalink_url']} | Click to view screenshot.>", icon_emoji: ":sob:"
 end
-{% endhighlight %}
+```
 
 And that's it! Whenever a spec fails, it will send you a Gyazo link via Slack, which will contain a screengrab of the app as it was when it failed. Super useful for debugging flaky tests.

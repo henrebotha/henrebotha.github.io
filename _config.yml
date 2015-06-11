@@ -9,4 +9,5 @@ twitter_username: henrebotha
 github_username:  henrebotha
 
 # Build settings
-markdown: kramdown
+markdown: redcarpet
+highlighter: pygments
