@@ -35,3 +35,7 @@ Surprise, surprise: it returns `nil`, instead of a `NameError` as any person who
 This is not a minor issue, either: last week, we discovered it to be the cause of a bug that prevented an entire feature on our site from working.
 
 So what on Earth is the rationale here? How is Ruby able to see the variable that exists inside a block that *never executes*?
+
+---
+
+http://programmingisterrible.com/post/42432568185/how-to-parse-ruby
