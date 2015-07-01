@@ -36,11 +36,14 @@ This is not a minor issue, either: last week, we discovered it to be the cause o
 
 So what on Earth is the rationale here? How is Ruby able to see the variable that exists inside a block that *never executes*?
 
----
-
 There are two factors at work here.
 
+# Branch evaluation
+
 1. Ruby runs through all branches before starting execution.
+
+# Name ambiguity
+
 2. In Ruby, since `foo` is ambiguously defined as either a method call or a variable name, the interpreter needs to check which it is before it can continue.
 
 So it runs through all branches, gets to a variable name `x`, sees that we are assigning to it, realises it is therefore a variable name, and instantiates it with the value `nil`.
