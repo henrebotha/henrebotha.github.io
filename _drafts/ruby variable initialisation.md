@@ -42,7 +42,7 @@ This is not a minor issue, either: recently, we discovered it to be the cause of
 
 So what on Earth is the rationale here? How is Ruby able to see the variable that exists inside a block that *never executes*?
 
-There are two Ruby features at work here.
+There's a subtly complicated Ruby feature at work here.
 
 ## Name ambiguity
 
@@ -60,14 +60,24 @@ foo
 
 This seems like a trivial convenience feature, but it's much more complicated than that, because it has implications for **parsing**.
 
-When your code gets read into the Ruby interpreter, it has distinguish method calls from variable names in order to interpret your code correctly and unambiguously.
+When your code gets read into the Ruby interpreter, it has to distinguish method calls from variable names in order to interpret your code correctly and unambiguously. So when it sees a token like `foo`, it has to decide: is this a method call or a variable reference? When not given enough context (such as parentheses), it has to default to one option or the other - and there's a logical choice here.
 
-A variable will always shadow ("override") a method. Meaning if you have a local variable `foo` and a method `foo()`, `foo` will be treated as a variable dereference.
+A variable will always shadow ("override") a method. Meaning if you have a local variable `foo` and a method `foo()`, `foo` will be treated as a variable reference. There's a good reason for this behaviour: if `foo` is treated as a variable, you can still access the method `foo` - just call it with empty parentheses. But if `foo` is assumed to be the method, you have no way of explicitly accessing the variable - that name now completely shadows the variable name.
 
-# Branch evaluation
+## Scope evaluation
 
-Ruby runs through all branches before starting execution.
+In order for the above to work, the interpreter needs to know which tokens are in scope at any given point. **This means it has to run through all branches before starting execution**.
 
-So it runs through all branches, gets to a variable name `x`, sees that we are assigning to it, realises it is therefore a variable name, and instantiates it with the value `nil`.
+So, when parsing your code, it runs through all branches, gets to a variable name `foo`, sees that we are assigning to it, realises it is therefore a variable name, and instantiates it with the value `nil`.
 
-http://programmingisterrible.com/post/42432568185/how-to-parse-ruby
+The takeaway here is this: if you ever use a token on the left-hand side of an assignment - *even an assignment that can't happen* - that token, on its own, references a variable, and that can cause headaches when you're trying to access a method, or expecting a variable to not exist.
+
+## Bonus
+
+For those who are interested, the line that broke our code looked like this:
+
+```ruby
+search_params = search_params.nil? ? {} : search_params
+```
+
+`search_params` is a method - the Rails 4 "strong params" kind. But because here we *assigned* to `search_params`, the last mention of it in the line became a variable reference, and so regardless of whether `search_params()` returned anything, after this line `search_params` would always equal `nil`.
