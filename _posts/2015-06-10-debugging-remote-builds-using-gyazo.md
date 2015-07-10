@@ -28,13 +28,22 @@ You can define the `gyazo_screenshot` method in `feature_helper.rb`:
 
 ```ruby
 def gyazo_screenshot(example)
-    gyazo = Gyazo::Client.new '99c2d9ae513cde365c25598fcd011cbcd882728d511dab61c2e38571c182c8c1' # your access token
-    notifier = Slack::Notifier.new("https://hooks.slack.com/services/CaTd6YeRd/WDj7cfNOD/srwGKrg724rpMpnUQReE6dLP", username: 'Gyazo') # use your slack URL here
+    gyazo = Gyazo::Client.new(
+        '99c2d9ae513cde365c25598fcd011cbcd882728d511dab61c2e38571c182c8c1'
+    ) # your access token
+    notifier = Slack::Notifier.new(
+        "https://hooks.slack.com/services/CaTd6YeRd/WDj7cfNOD/srwGKrg724rpMpnUQReE6dLP",
+        username: 'Gyazo'
+    ) # use your slack URL here
 
     fail_screen = save_screenshot("test failed.jpg")
     res = gyazo.upload fail_screen
 
-    notifier.ping "*Spec failed:* #{example.full_description}\n#{example.location}:\n>#{example.exception}\n<#{res['permalink_url']} | Click to view screenshot.>", icon_emoji: ":sob:"
+    notification = "*Spec failed:* #{example.full_description}""
+    notification += "\n#{example.location}:\n>#{example.exception}"
+    notification += "\n<#{res['permalink_url']} | Click to view screenshot.>"
+
+    notifier.ping notification, icon_emoji: ":sob:"
 end
 ```
 
