@@ -39,7 +39,7 @@ def gyazo_screenshot(example)
     fail_screen = save_screenshot("test failed.jpg")
     res = gyazo.upload fail_screen
 
-    notification = "*Spec failed:* #{example.full_description}""
+    notification = "*Spec failed:* #{example.full_description}"
     notification += "\n#{example.location}:\n>#{example.exception}"
     notification += "\n<#{res['permalink_url']} | Click to view screenshot.>"
 
