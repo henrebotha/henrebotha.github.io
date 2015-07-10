@@ -204,3 +204,18 @@ pre {
         }
     }
 }
+
+
+/**
+ * Scrollbars
+ */
+::-webkit-scrollbar {
+    width: 15px;
+}
+::-webkit-scrollbar-track {
+    background-color: darken($background-color, 2%);
+} /* the new scrollbar will have a flat appearance with the set background color */
+
+::-webkit-scrollbar-thumb, ::-webkit-scrollbar-button {
+    background-color: $background-color;
+} /* this will style the thumb, ignoring the track */
