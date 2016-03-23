@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Debugging remote builds using Gyazo
+title: Using custom display values in Simple Form
 date: 2016-03-23 21:43:00
 tags: [ruby, rails, simple form]
 ---
