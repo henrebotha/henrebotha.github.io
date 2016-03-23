@@ -15,6 +15,6 @@ simple_form_for @qualification do |f|
         label_method: ->(i) { i == 4 ? "final year" | "#{i.ordinalize} year" }
 ```
 
-This example would result in a `select` that selects from `[1, 2, 3, 4]`, but displays `["first year", "second year", "third year", "final year"]`.
+This example would result in a `select` that selects from `[1, 2, 3, 4]`, but displays `["1st year", "2nd year", "3rd year", "final year"]`.
 
 This is a rather nifty feature and I'm surprised they don't document it a bit better, but hey, now you know. :)
