@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Using custom display values in Simple Form
-date: 2016-03-23 21:43:00
+date: 2016-03-23 21:43:00 +0200
 tags: [ruby, rails, simple form]
 ---
 [Simple Form](https://github.com/plataformatec/simple_form) is a popular library for Rails that makes it easy to generate forms using a simple DSL, while adding high customisability.
