@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Debugging remote builds using Gyazo
-date: 2015-06-10 19:16:00
+date: 2015-06-10 19:16:00 +0200
 tags: [ruby, rails, capybara, rspec, semaphore, gyazo]
 ---
 At Leaply, we use Capybara and Poltergeist to run integration tests. Sometimes, we find that our specs don't give enough information to determine why a test failed, and when we run them on Semaphore, it's especially hard to troubleshoot the cause as we don't have access to screenshots after the fact.
