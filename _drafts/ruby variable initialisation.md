@@ -10,7 +10,7 @@ So on that note, consider the following Python code.
 
 ```python
 if False:
-    foo = 5
+  foo = 5
 print(foo)
 ```
 
@@ -20,7 +20,7 @@ What about Javascript?
 
 ```javascript
 if(false) {
-	foo = 5;
+  foo = 5;
 }
 console.log(foo);
 ```
@@ -31,14 +31,14 @@ Wahey! `ReferenceError`!
 
 ```ruby
 if false
-	foo = 5
+  foo = 5
 end
 puts foo
 ```
 
-Surprise, surprise: it returns `nil`, instead of a `NameError` as any person who's ever used an interpreted language might expect. Somehow, `foo` has come into existence (albeit valueless), *despite not existing in the code's execution path*.
+Surprise, surprise: it returns `nil`, instead of a `NameError` as any person who's ever used an interpreted language might expect. Somehow, `foo` has come into existence (albeit valueless), *despite not existing in any execution path*.
 
-This is not a minor issue, either: recently, we discovered it to be the cause of a bug that prevented an entire feature on our site from working.
+This is not a minor issue, either: some time ago, we discovered it to be the cause of a bug that prevented an entire feature on our site from working.
 
 So what on Earth is the rationale here? How is Ruby able to see the variable that exists inside a block that *never executes*?
 
@@ -50,25 +50,49 @@ You are certainly aware that in Ruby, we can call zero-argument methods without 
 
 ```ruby
 def foo:
-    puts "Hello, World!"
+  puts "Hello, World!"
 end
 foo()
-# -> Hello, World!
+# => Hello, World!
 foo
-# -> Hello, World!
+# => Hello, World!
 ```
 
 This seems like a trivial convenience feature, but it's much more complicated than that, because it has implications for **parsing**.
 
 When your code gets read into the Ruby interpreter, it has to distinguish method calls from variable names in order to interpret your code correctly and unambiguously. So when it sees a token like `foo`, it has to decide: is this a method call or a variable reference? When not given enough context (such as parentheses), it has to default to one option or the other - and there's a logical choice here.
 
-A variable will always shadow ("override") a method. Meaning if you have a local variable `foo` and a method `foo()`, `foo` will be treated as a variable reference. There's a good reason for this behaviour: if `foo` is treated as a variable, you can still access the method `foo` - just call it with empty parentheses. But if `foo` is assumed to be the method, you have no way of explicitly accessing the variable - that name now completely shadows the variable name.
+<!-- Do the below paragraph as an "aside" box of some kind. It's not necessary for understanding the post. -->
+
+A variable will always shadow ("override") a method. Meaning if you have a local variable `foo` and a method `foo()`, `foo` will be treated as a variable reference. There's a good reason for this behaviour: if `foo` is assumed to be a variable, you can still access the method called `foo` - just call it with empty parentheses. But if `foo` is assumed to be the method, you have no way of explicitly accessing the variable. Therefore, Ruby prefers to assume it's a variable.
 
 ## Scope evaluation
 
-In order for the above to work, the interpreter needs to know which tokens are in scope at any given point. **This means it has to run through all branches before starting execution**.
+In order for the above to work, the interpreter needs to know which tokens are in scope at any given point. (This is because tokens - be they variable names or method names - must obey scoping rules. `ModuleOne#foo` is not necessarily the same thing as `ModuleOne::ModuleTwo#foo`.) **This means it has to run through all branches before starting execution**.
 
-So, when parsing your code, it runs through all branches, gets to a variable name `foo`, sees that we are assigning to it, realises it is therefore a variable name, and instantiates it with the value `nil`.
+So, when Ruby parses our code, it runs through all branches, gets to a variable name `foo`, sees that we are assigning to it, realises it is therefore a variable name, and instantiates it with the value `nil`.
+
+Here's why that's such a bastard.
+
+```ruby
+def foo:
+  {bar: 'baz'}
+end
+foo = {} if foo.nil?
+```
+
+Let's rewrite it to make it a little clearer what's happening here.
+
+```ruby
+def foo:
+  {bar: 'baz'}
+end
+if foo.nil?
+  foo = {}
+end
+```
+
+Even though line 5 will never execute - because the method `foo` will never return nil - the simple fact that `foo =` was ever written down will mean that `foo` is hereafter treated as a variable name. Attempting to call your method `foo` without parentheses explicitly appended will yield a `nil` value every time - and ironically, **this is the very behaviour we are attempting to prevent in lines 4 through 6**.
 
 The takeaway here is this: if you ever use a token on the left-hand side of an assignment - *even an assignment that can't happen* - that token, on its own, references a variable, and that can cause headaches when you're trying to access a method, or expecting a variable to not exist.
 
