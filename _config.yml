@@ -4,7 +4,6 @@ description: >
   Learning while doing. A blog.
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://henrebotha.github.io" # the base hostname & protocol for your site
-twitter_username: henrebotha
 github_username:  henrebotha
 
 # Build settings
