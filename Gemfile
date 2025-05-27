@@ -14,3 +14,5 @@ gem "concurrent-ruby", "~> 1.3"
 gem "rake", "~> 13.2"
 
 gem "logger", "~> 1.7"
+
+gem "rubocop", "~> 1.75", group: :development

@@ -1,0 +1,5 @@
+Layout/MultilineOperationIndentation:
+  EnforcedStyle: indented
+
+Layout/MultilineMethodCallIndentation: 
+  EnforcedStyle: indented
