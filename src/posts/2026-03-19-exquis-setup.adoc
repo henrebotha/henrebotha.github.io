@@ -1,0 +1,96 @@
+= Exquis setup
+include::{root}/asciidoc/attributes/doc-attrs.adoc[]
+include::{root}/asciidoc/attributes/highlightjs.adoc[]
+:date: 2026-03-19 14:45 +0200
+:layout: post
+:tags: music, quickie
+
+I recently bought an Intuitive Instruments Exquis, thanks to my wife.
+
+The documentation for this controller is a little fragmented and curt, so I am sharing here some succinct notes on how to configure and use it.
+
+== Writing Exquis notation
+
+I find the characters `⬡` (U+2b21) and `⬢` (U+2b22) useful for writing out chord shapes or similar.
+
+====
+In the default layout, this is how you can play an open minor triad (0 + 7 + 15).
+
+----
+ ⬡ ⬢
+⬡ ⬡ ⬡
+ ⬢ ⬡
+⬡ ⬡ ⬡
+ ⬢ ⬡
+----
+====
+
+I don't know what standards exist for defining layouts, but privately, I've been using the convention [±n/±m], where n is how many semitones you move when you move 1 hex to the right, and m is how many you move when you move up-right.
+
+====
+The default layout is thus [+1/+4], which can be visualised as follows.
+
+----
+    ⬡
++4 ↗
+  ⬢ → ⬡ 
+   +1
+----
+====
+
+== Configuring the keyboard
+
+=== Buttons
+
+I'll refer to the encoders by their number, starting from the left.
+"Turn" means rotate the knob; "click" means press it.
+
+The "gear" button ⚙︎ is the "keyboard settings" button, which is really just a grab bag of stuff that includes both "technical" (MIDI clock, LED brightness) and "musical" (tonic, scale) aspects.
+The "squiggle" button ∿ is the "MIDI and layout settings" button.
+
+=== Shortcuts
+
+* *MIDI output*
+  ** *Toggle MPE/poly aftertouch* (aka non-MPE): ∿ + click 1
+  ** *Choose MIDI output channel* (poly aftertouch mode): ∿ + turn 1
+    - Set to 1 to use with non-MPE hardware while retaining some pitch bend facility
+  ** *Choose number of MPE channels*: ∿ + turn 1
+* *Keyboard layout*
+  ** *Change note layout*: ∿ + turn 3
++
+.Click for list of layouts
+[%collapsible]
+====
+. Default
+. Default with duplicates
+. Chromatic
+. 4×4 drum pads
+. General MIDI percussion
+. Rainbow
+====
+  ** *Adjust tonic note*: ⚙︎ + turn 2
+  ** *Adjust scale*: ⚙︎ + turn 3
++
+.Click for list of scales
+[%collapsible]
+====
+. Major
+. Natural Minor
+. Melodic Minor
+. Harmonic Minor
+. Dorian
+. Phrygian
+. Lydian
+. Mixolydian
+. Locrian
+. Phrygian dominant
+. Major Pentatonic
+. Minor Pentatonic
+. Whole Tone
+. Chromatic
+====
+  ** *Transpose keyboard stepwise*: ⚙︎ + ⌃︎/⌄︎
+* *Adjust tempo*: ⚙︎ + turn 1
+* *Hardware*
+  ** *Adjust sensitivity*: ⚙︎ + click & turn 4
+  ** *Adjust brightness*: ⚙︎ + turn 4

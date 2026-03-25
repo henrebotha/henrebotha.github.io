@@ -1,0 +1,360 @@
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<style>
+  :root {
+    --black: #22242c;
+    --yellow: #f5c000;
+    --blue: #8aadf4;
+    --red: #e88388;
+    --dark-black: #1a1b26;
+    --cyan: #89dceb;
+    --white: #d9e0ee;
+    --green: #a6da95;
+    --light-black: #57566a;
+  }
+
+  .primary {
+    color: var(--yellow);
+  }
+
+  body, #toc.toc2 {
+    background-repeat: repeat;
+    background-attachment: fixed;
+    background-size: 10%;
+    background-image: linear-gradient(to top, var(--black), var(--light-black)), url({user-home}/.local/share/asciidoc/assets/svg/noise.svg);
+    color: var(--white);
+    font-family: "Inter Variable";
+    font-feature-settings: 'calt' on, 'dlig' on, 'tnum' off, 'frac' off, 'ss01' on, 'ss02' on, 'ss07' on, 'ss08' on, 'ss03' on;
+  }
+
+  p, p strong, td.content strong, div.footnote strong {
+    letter-spacing: revert;
+  }
+
+  .paragraph.lead > p, #preamble > .sectionbody > [class=paragraph]:first-of-type p {
+    color: var(--white);
+  }
+
+  /* Allow contents of <samp> to be <code>, for when output is code-y (e.g. shell escape codes) */
+  samp:not(pre):not([class^="L"]) > code {
+    background: inherit;
+    color: inherit;
+  }
+
+  :not(pre):not([class^=L]):not(samp) > code {
+    background: var(--white);
+    color: var(--black);
+    word-spacing: revert;
+  }
+
+  .exampleblock :not(pre):not([class^=L]) > code, .sidebarblock :not(pre):not([class^=L]) > code {
+    background: var(--white);
+    color: var(--black);
+  }
+
+  #toc.toc2 {
+    background-color: var(--dark-black);
+    border-right: none;
+  }
+
+  .sidebarblock > .content > .title {
+    color: var(--white);
+  }
+
+  h1, h2, h3, #toctitle, .sidebarblock > .content > .title, h4, h5, h6 {
+    font-family: "Inter Variable";
+    font-weight: 400;
+    font-feature-settings: 'calt' on, 'dlig' on, 'tnum' on, 'frac' off, 'ss01' on, 'ss02' on, 'ss07' on, 'ss08' on, 'ss03' on;
+  }
+
+  .admonitionblock td.content > .title,
+  .audioblock > .title,
+  .exampleblock > .title,
+  .imageblock > .title,
+  .listingblock > .title,
+  .literalblock > .title,
+  .stemblock > .title,
+  .openblock > .title,
+  .paragraph > .title,
+  .quoteblock > .title,
+  table.tableblock > .title,
+  .verseblock > .title,
+  .videoblock > .title,
+  .dlist > .title,
+  .olist > .title,
+  .ulist > .title,
+  .qlist > .title,
+  .hdlist > .title {
+    font-family: "Inter Variable";
+    font-feature-settings: 'calt' on, 'dlig' on, 'tnum' on, 'frac' off, 'ss01' on, 'ss02' on, 'ss07' on, 'ss08' on, 'ss03' on;
+    font-weight: 500;
+  }
+
+  .quoteblock blockquote,
+  .quoteblock p,
+  .quoteblock .attribution cite,
+  .verseblock .attribution cite
+  {
+    color: var(--white);
+    font-size: revert;
+    text-align: revert;
+  }
+
+  .quoteblock {
+    margin-left: 0;
+  }
+
+  .quoteblock blockquote {
+    border-left: 0.2em solid var(--yellow);
+    padding-left: 1em;
+  }
+
+  .quoteblock blockquote::before {
+    all: initial;
+  }
+
+  .quoteblock blockquote,
+  .quoteblock p {
+    word-spacing: revert;
+    letter-spacing: revert;
+  }
+
+  .keyseq {
+    color: inherit;
+  }
+
+  code, pre {
+    font-family: "JetBrains Mono";
+    font-feature-settings: 'calt' on,
+      'frac' off,
+      'ss01' off,
+      'ss02' on,
+      'ss19' on,
+      'cv01' off,
+      'cv11' on,
+      'cv08' on,
+      'cv05' on,
+      'cv14' on,
+      'zero' on;
+  }
+
+  samp {
+    font-family: "Inter Variable";
+    color: var(--yellow);
+    padding: 0.1em 0.5ex;
+  }
+
+  kbd {
+    font-family: "JetBrains Mono";
+    font-feature-settings: 'calt' off,
+      'dlig' off,
+      'frac' off,
+      'ss01' off,
+      'ss02' on,
+      'ss19' on,
+      'cv01' off,
+      'cv11' on,
+      'cv08' on,
+      'cv05' on,
+      'cv14' on,
+      'zero' on;
+    font-size: 0.85em;
+    font-weight: 500;
+    color: var(--white);
+    background: color-mix(in srgb, var(--dark-black), white 15%);
+    border: none;
+    border-radius: 3px;
+    box-shadow: none;
+    padding: 0.2em 0.5em;
+    margin: 0 0.1em;
+    display: inline-block;
+    vertical-align: baseline;
+  }
+
+  kbd:not(:has(samp)) {
+    border-bottom: 2px solid var(--white);
+  }
+
+  kbd:active {
+    background: color-mix(in srgb, var(--dark-black), white 10%);
+    border-color: color-mix(in srgb, var(--dark-black), white 20%);
+  }
+  #header > h1:first-child,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  #content h1 > a.link,
+  h2 > a.link,
+  h3 > a.link,
+  #toctitle > a.link,
+  .sidebarblock > .content > .title > a.link,
+  h4 > a.link,
+  h5 > a.link,
+  h6 > a.link,
+  #content h1 > a.link:hover,
+  h2 > a.link:hover,
+  h3 > a.link:hover,
+  #toctitle > a.link:hover,
+  .sidebarblock > .content > .title > a.link:hover,
+  h4 > a.link:hover,
+  h5 > a.link:hover,
+  h6 > a.link:hover,
+  #toctitle,
+  .subheader,
+  .admonitionblock td.content > .title,
+  .audioblock > .title,
+  .exampleblock > .title,
+  .imageblock > .title,
+  .listingblock > .title,
+  .literalblock > .title,
+  .stemblock > .title,
+  .openblock > .title,
+  .paragraph > .title,
+  .quoteblock > .title,
+  table.tableblock > .title,
+  .verseblock > .title,
+  .videoblock > .title,
+  .dlist > .title,
+  .olist > .title,
+  .ulist > .title,
+  .qlist > .title,
+  .hdlist > .title
+  {
+    color: var(--yellow);
+    font-feature-settings: 'calt' on, 'dlig' on, 'tnum' on, 'frac' off, 'ss01' on, 'ss02' on, 'ss07' on, 'ss08' on, 'ss03' on;
+  }
+
+  .frac {
+    font-feature-settings: 'frac' on;
+  }
+
+  table {
+    border: none;
+    border-spacing: 5px;
+    border-collapse: separate;
+    background: none;
+  }
+  table.frame-all {
+    border-width: 0;
+  }
+  table thead tr th.tableblock {
+    border-bottom: 1px solid var(--yellow);
+  }
+  table td, table tr {
+    border:none;
+  }
+  table.tableblock,
+  th.tableblock,
+  td.tableblock {
+    border: none;
+  }
+
+  table thead tr th,
+  table thead tr td,
+  table tfoot tr th,
+  table tfoot tr td {
+    color: var(--white);
+  }
+
+  table tr th, table tr td:not(.code) {
+    background-color: var(--dark-black);
+    color: var(--white);
+  }
+
+  .admonitionblock > table td.icon {
+    background-color: rgba(0,0,0,25%);
+    text-shadow: none;
+  }
+
+  .admonitionblock > table td.icon .title {
+    color: var(--red);
+  }
+
+  .admonitionblock > table td.icon .icon-warning::before {
+    color: var(--red);
+    text-shadow: none;
+  }
+  .admonitionblock > table td.icon .icon-note::before {
+    color: var(--green);
+    text-shadow: none;
+  }
+  .admonitionblock > table td.icon .icon-caution::before {
+    color: var(--yellow);
+    text-shadow: none;
+  }
+  .admonitionblock > table td.icon .icon-tip::before {
+    color: var(--white);
+    text-shadow: none;
+  }
+  .admonitionblock > table td.icon .icon-important::before {
+    color: var(--yellow);
+    text-shadow: none;
+  }
+
+  .admonitionblock > table td.content {
+    color: var(--white);
+  }
+
+  .exampleblock > .content {
+    background-color: var(--dark-black);
+  }
+
+  .sidebarblock {
+    background-color: var(--dark-black);
+  }
+
+  a {
+    color: var(--cyan);
+    text-decoration: underline;
+  }
+  a:hover {
+    color: var(--red);
+  }
+  a:not(h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a) {
+    color: white;
+    text-shadow: 0px 0px 6px var(--cyan);
+  }
+  a > code {
+    /* Reset the hyperlink shadow */
+    text-shadow: none;
+    box-shadow: 0px 0px 6px var(--cyan);
+  }
+  a:hover:not(h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a) {
+    color: var(--cyan);
+  }
+  a > code:hover {
+    background-color: var(--cyan);
+  }
+  .toc-left a {
+    color: var(--white);
+    text-shadow: none;
+  }
+  .toc-left a:hover {
+    color: var(--white);
+    text-shadow: 0px 0px 6px var(--cyan);
+  }
+
+  details > summary::before {
+    color: var(--white);
+    filter: drop-shadow(0px 0px 3px var(--cyan));
+  }
+  details > summary:hover::before {
+    color: var(--cyan);
+  }
+  details > summary {
+    margin: 0;
+  }
+
+  footer {
+    position: fixed;
+    bottom: 0;
+  }
+
+  .ipa {
+    white-space: nowrap;
+  }
+</style>

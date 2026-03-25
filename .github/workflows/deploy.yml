@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+      - adoc
+
   workflow_dispatch:
 
 permissions:
@@ -30,7 +32,7 @@ jobs:
       - name: Build AsciiDoc files
         run: |
           mkdir -p _site
-          asciidoctor -D _site *.adoc
+          asciidoctor -a root=$(pwd) -R src -r ./asciidoc/extensions/custom-macros.rb -r ./asciidoc/extensions/generate-index.rb -D _site 'src/**/*.adoc'
           cp -r css _site/ 2>/dev/null || true
           cp favicon.ico _site/ 2>/dev/null || true
 
