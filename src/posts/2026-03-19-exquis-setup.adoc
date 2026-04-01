@@ -1,9 +1,8 @@
 = Exquis setup
-include::{root}/asciidoc/attributes/doc-attrs.adoc[]
-include::{root}/asciidoc/attributes/highlightjs.adoc[]
 :date: 2026-03-19 14:45 +0200
 :layout: post
 :tags: music, quickie
+include::{root}/src/_include/global.adoc[]
 
 I recently bought an Intuitive Instruments Exquis, thanks to my wife.
 

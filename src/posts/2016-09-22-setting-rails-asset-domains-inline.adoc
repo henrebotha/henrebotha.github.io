@@ -1,9 +1,8 @@
 = Setting Rails asset domains inline
-include::{root}/asciidoc/attributes/doc-attrs.adoc[]
-include::{root}/asciidoc/attributes/highlightjs.adoc[]
 :date: 2016-09-22 10:00 +0200
 :layout: post
 :tags: ruby, rails, quickie
+include::{root}/src/_include/global.adoc[]
 
 Rails provides a set of view helpers for including assets on a page: `image_tag`, `javascript_include_tag`, and `stylesheet_link_tag`.
 These make use of your host domain as set in your Rails configuration via `config.action_controller.host`.

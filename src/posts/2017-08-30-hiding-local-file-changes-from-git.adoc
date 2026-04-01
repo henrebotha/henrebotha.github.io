@@ -1,9 +1,8 @@
 = Hiding local file changes from git
-include::{root}/asciidoc/attributes/doc-attrs.adoc[]
-include::{root}/asciidoc/attributes/highlightjs.adoc[]
 :date: 2017-08-30 15:00 +0200
 :layout: post
 :tags: git, quickie
+include::{root}/src/_include/global.adoc[]
 
 I'm currently working on refactoring some Angular components and update styling for our booking confirmation screen.
 My colleague Matt showed me a handy way to manually stick a big object in the relevant model file so that I can directly go to the booking confirmation screen without having to click through the whole search/price/book process.

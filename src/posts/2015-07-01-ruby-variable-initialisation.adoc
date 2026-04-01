@@ -1,9 +1,8 @@
 = A Ruby execution path gotcha
-include::{root}/asciidoc/attributes/doc-attrs.adoc[]
-include::{root}/asciidoc/attributes/highlightjs.adoc[]
 :layout: post
 :date: 2015-07-01 18:00:00
 :tags: [ruby]
+include::{root}/src/_include/global.adoc[]
 
 The principle of least astonishment is a guiding philosophy in the design of computer systems.
 Any operation, the principle says (roughly), should always have the least surprising result.

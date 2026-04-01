@@ -1,0 +1,10 @@
+include::{root}/asciidoc/attributes/doc-attrs.adoc[]
+include::{root}/asciidoc/attributes/highlightjs.adoc[]
+
+link:/index.html[Home]
+
+ifdef::my-attr[]
+NOTE: You have set `my-attr`!
+endif::my-attr[]
+
+'''
