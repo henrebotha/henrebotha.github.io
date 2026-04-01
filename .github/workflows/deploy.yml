@@ -32,9 +32,13 @@ jobs:
       - name: Build AsciiDoc files
         run: |
           mkdir -p _site
-          asciidoctor -a root=$(pwd) -R src -r ./asciidoc/extensions/custom-macros.rb -r ./asciidoc/extensions/generate-index.rb -D _site 'src/**/*.adoc'
+          asciidoctor -a root=$(pwd) -a assets_root=/assets -R src -r ./asciidoc/extensions/custom-macros.rb -r ./asciidoc/extensions/generate-index.rb -D _site 'src/**/*.adoc'
           cp -r css _site/ 2>/dev/null || true
           cp favicon.ico _site/ 2>/dev/null || true
+          mkdir -p _site/assets/svg
+          cp -r asciidoc/assets/svg _site/assets/ 2>/dev/null || true
+          mkdir -p _site/assets/js
+          cp -r asciidoc/assets/js _site/assets/ 2>/dev/null || true
 
       - name: Upload pages artifact
         uses: actions/upload-pages-artifact@v3

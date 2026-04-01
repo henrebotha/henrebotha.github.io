@@ -1,10 +1,10 @@
 require 'asciidoctor/extensions'
 
 def find_posts
-  [
-    'posts/2026-03-19-exquis-setup.adoc[Exquis setup]',
-    'posts/2015-07-01-ruby-variable-initialisation.adoc[Ruby variable initialisation]'
-  ].map { |p| 'xref:' + p }
+  Dir.glob('src/posts/*.adoc')
+    .map { |p| p.gsub(/^src\//, '') }
+    .map { |p| p.gsub(/(posts\/\d{4}-\d{2}-\d{2}-(.+)\.adoc)/, '\1[\2]') }
+    .map { |p| 'xref:' + p }
 end
 
 Asciidoctor::Extensions.register do
