@@ -7,7 +7,7 @@ include::{root}/asciidoc/attributes/highlightjs.adoc[]
 
 The principle of least astonishment is a guiding philosophy in the design of computer systems.
 Any operation, the principle says (roughly), should always have the least surprising result.
-It makes sense: Computer systems are extremely complex, and if a user — or a developer — can't rely on their instincts, how can we expect their to use the system _at all_?
+It makes sense: Computer systems are extremely complex, and if a user — or a developer — can't rely on their instincts, how can we expect them to use the system _at all_?
 
 So on that note, consider the following Python code.
 
