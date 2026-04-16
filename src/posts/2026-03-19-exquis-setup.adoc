@@ -2,42 +2,46 @@
 :date: 2026-03-19 14:45 +0200
 :layout: post
 :tags: music, quickie
+:stem:
 include::{root}/src/_include/global.adoc[]
 
 I recently bought an Intuitive Instruments Exquis, thanks to my wife.
 
-The documentation for this controller is a little fragmented and curt, so I am sharing here some succinct notes on how to configure and use it.
-
-== Writing Exquis notation
-
-I find the characters `⬡` (U+2b21) and `⬢` (U+2b22) useful for writing out chord shapes or similar.
-
-====
-In the default layout, this is how you can play an open minor triad (0 + 7 + 15).
-
-----
- ⬡ ⬢
-⬡ ⬡ ⬡
- ⬢ ⬡
-⬡ ⬡ ⬡
- ⬢ ⬡
-----
-====
-
-I don't know what standards exist for defining layouts, but privately, I've been using the convention [±n/±m], where n is how many semitones you move when you move 1 hex to the right, and m is how many you move when you move up-right.
-
-====
-The default layout is thus [+1/+4], which can be visualised as follows.
-
-----
-    ⬡
-+4 ↗
-  ⬢ → ⬡ 
-   +1
-----
-====
+The documentation for this controller is a little fragmented and terse, so I am sharing here some succinct notes on how to configure and use it.
 
 == Configuring the keyboard
+
+=== Quick cheat sheet
+
+[%autowidth,cols=",,"]
+|===
+.3+h| MIDI output
+h| Toggle MPE/poly aftertouch
+| ∿ + click 1
+
+h| Choose MIDI output channel
+| ∿ + turn 1
+
+h| Choose number of MPE channels
+| ∿ + turn 1
+
+.4+h| Keyboard layout
+h| Change note layout
+| ∿ + turn 3
+
+h| Adjust tonic note
+| ⚙︎ + turn 2
+
+h| Adjust scale
+| ⚙︎ + turn 3
+
+h| Adjust tempo
+| ⚙︎ + turn 1
+
+h| Hardware
+h| Adjust sensitivity
+| ⚙︎ + click & turn 4
+|===
 
 === Buttons
 
@@ -60,12 +64,17 @@ The "squiggle" button ∿ is the "MIDI and layout settings" button.
 .Click for list of layouts
 [%collapsible]
 ====
-. Default
-. Default with duplicates
-. Chromatic
-. 4×4 drum pads
-. General MIDI percussion
-. Rainbow
+[.tnum%autowidth,cols=">h,"]
+|===
+| 1 | Default
+| 2 | Default with duplicates
+| 3 | Chromatic
+| 4 | 4×4 drum pads
+| 5 | General MIDI percussion
+| 6 | Rainbow
+|===
+
+NOTE: This list can be customised and added to using the Exquis app.
 ====
   ** *Adjust tonic note*: ⚙︎ + turn 2
   ** *Adjust scale*: ⚙︎ + turn 3
@@ -73,23 +82,71 @@ The "squiggle" button ∿ is the "MIDI and layout settings" button.
 .Click for list of scales
 [%collapsible]
 ====
-. Major
-. Natural Minor
-. Melodic Minor
-. Harmonic Minor
-. Dorian
-. Phrygian
-. Lydian
-. Mixolydian
-. Locrian
-. Phrygian dominant
-. Major Pentatonic
-. Minor Pentatonic
-. Whole Tone
-. Chromatic
+[.tnum%autowidth,cols=">h,"]
+|===
+| 1 | Major
+| 2 | Natural Minor
+| 3 | Melodic Minor
+| 4 | Harmonic Minor
+| 5 | Dorian
+| 6 | Phrygian
+| 7 | Lydian
+| 8 | Mixolydian
+| 9 | Locrian
+| 10 | Phrygian dominant
+| 11 | Major Pentatonic
+| 12 | Minor Pentatonic
+| 13 | Whole Tone
+| 14 | Chromatic
+|===
+
+NOTE: This list can be customised and added to using the Exquis app.
 ====
-  ** *Transpose keyboard stepwise*: ⚙︎ + ⌃︎/⌄︎
+  ** *Transpose keyboard stepwise*: ⚙︎ + ⇵
 * *Adjust tempo*: ⚙︎ + turn 1
 * *Hardware*
   ** *Adjust sensitivity*: ⚙︎ + click & turn 4
   ** *Adjust brightness*: ⚙︎ + turn 4
+
+== Writing Exquis notation
+
+I find the characters `⬡` (U+2b21) and `⬢` (U+2b22) useful for writing out chord shapes or similar.
+
+====
+In the default layout, this is how you can play an open minor triad (0 + 7 + 15).
+
+----
+ ⬡ ⬡ ⬢ ⬡
+⬡ ⬡ ⬡ ⬡ ⬡
+ ⬡ ⬢ ⬡ ⬡
+⬡ ⬡ ⬡ ⬡ ⬡
+ ⬡ ⬢ ⬡ ⬡
+----
+====
+
+For defining layouts, I've been using a version of the convention established by Maupin et al <<iso>>.
+They define a layout as stem:[V: ±n, H: ±m], where stem:[n] is how many semitones you move when you move 1 hex upwards, and stem:[m] is how many you move when you move 1 hex to the right.
+A layout with flat sides (like the Exquis) is "horizontal"; a layout with pointy sides is "vertical".
+
+[sidebar]
+Thus for a horizontal layout, the vertical interval requires skipping a row; and for a vertical layout, the horizontal interval requires skipping a column.
+In other words: When we talk about the Exquis moving "up" by 1 hex, we mean moving up 2 rows to the hex exactly north from the starting hex.
+
+I elaborate their notation to express this orientation by placing stem:[V] first for vertical layouts, and stem:[H] first for horizontal layouts.
+Further, it's redundant to label the second field; we already know by convention that if the first field is stem:[H], the second must be stem:[V], and vice versa.
+
+====
+The default Exquis layout is thus stem:[H: +1, +7], which can be visualised as follows.
+
+----
+   ⬢ ⬡ ⬡
++7 ↑⬡ ⬡ ⬡
+   ⬢→⬢ ⬡
+   +1
+----
+====
+
+[bibliography]
+== References
+
+* [[[iso]]] Steven Maupin, David Gerhard, & Brett Park. (2011, July 6). Isomorphic Tessellations for Musical Keyboards. 8th Sound and Music Computing Conference (SMC2011), Padova, Italy. https://doi.org/10.5281/zenodo.849954
