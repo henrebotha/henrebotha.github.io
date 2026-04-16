@@ -24,15 +24,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install Asciidoctor
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y asciidoctor
+      - name: Use mise
+        uses: jdx/mise-action@v2.0.2
 
       - name: Build AsciiDoc files
         run: |
+          mise install
           mkdir -p _site
-          asciidoctor -a root=$(pwd) -a assets_root=/assets -R src -r ./asciidoc/extensions/custom-macros.rb -r ./asciidoc/extensions/generate-index.rb -D _site 'src/**/*.adoc'
+          mise r build
           cp -r css _site/ 2>/dev/null || true
           cp favicon.ico _site/ 2>/dev/null || true
           mkdir -p _site/assets/svg

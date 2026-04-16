@@ -1,3 +1,6 @@
+[tools]
+"gem:asciidoctor" = "latest"
+
 [tasks.build]
 description = 'Compile all adoc files'
 run = """
@@ -8,7 +11,6 @@ asciidoctor \
   -R src \
   -r ./asciidoc/extensions/custom-macros.rb \
   -r ./asciidoc/extensions/generate-index.rb \
-  -T templates \
   -E slim \
   -D _site 'src/**/*.adoc'
 """
