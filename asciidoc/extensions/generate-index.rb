@@ -2,8 +2,8 @@ require 'asciidoctor/extensions'
 
 def find_posts
   Dir.glob('src/posts/*.adoc')
+    .map { |p| p.gsub(/$/, '[' + File.open(p, &:readline).gsub(/^= /, '').strip + ']') }
     .map { |p| p.gsub(/^src\//, '') }
-    .map { |p| p.gsub(/(posts\/\d{4}-\d{2}-\d{2}-(.+)\.adoc)/, '\1[\2]') }
     .map { |p| 'xref:' + p }
 end
 
@@ -13,7 +13,7 @@ Asciidoctor::Extensions.register do
       if doc.attr? 'generate-index'
         posts = find_posts()
 
-        list = Asciidoctor::List.new(doc, :ulist, style: 'unstyled')
+        list = Asciidoctor::List.new(doc, :ulist, attributes: { 'role' => 'unstyled' })
         posts.each { |p| list << Asciidoctor::ListItem.new(list, p) }
 
         doc.blocks << list

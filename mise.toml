@@ -1,0 +1,32 @@
+[tasks.build]
+description = 'Compile all adoc files'
+run = """
+cd $MISE_PROJECT_ROOT && \
+asciidoctor \
+  -a root=$(pwd) \
+  -a assets_root=/assets \
+  -R src \
+  -r ./asciidoc/extensions/custom-macros.rb \
+  -r ./asciidoc/extensions/generate-index.rb \
+  -T templates \
+  -E slim \
+  -D _site 'src/**/*.adoc'
+"""
+
+[tasks.open]
+description = 'Open a given page'
+wait_for = ['build']
+usage = '''
+flag "-O --opener <command>" help="Page-opening command" {
+  choices "open" "termux-open" "xdg-open"
+  default "open"
+}
+flag "-b --browser <browser_name>" help="Browser (or other app) to open the page with" default="Firefox"
+flag "-F --file <file_name>" help="File to open" default="_site/index.html"
+'''
+run = """
+cd $MISE_PROJECT_ROOT && \
+$usage_opener \
+  -a $usage_browser \
+  $usage_file
+"""
