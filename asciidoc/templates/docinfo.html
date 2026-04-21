@@ -1,6 +1,8 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 <style>
   :root {
     --black: #22242c;
@@ -12,6 +14,20 @@
     --white: #d9e0ee;
     --green: #a6da95;
     --light-black: #57566a;
+
+    font-family: 'Inter', sans-serif;
+  }
+
+  @supports (font-variation-settings: normal) {
+    :root {
+      --tnum: ;
+      --frac: ;
+
+      font-family: 'InterVariable', sans-serif;
+
+      font-variant-ligatures: discretionary-ligatures contextual;
+      font-variant-numeric: var(--tnum, proportional-nums) var(--frac, );
+    }
   }
 
   .primary {
@@ -24,8 +40,8 @@
     background-size: 10%;
     background-image: linear-gradient(to top, var(--black), var(--light-black)), url({assets_root}/svg/noise.svg);
     color: var(--white);
-    font-family: "Inter Variable";
-    font-feature-settings: 'calt' on, 'dlig' on, 'tnum' off, 'frac' off, 'ss01' on, 'ss02' on, 'ss07' on, 'ss08' on, 'ss03' on;
+    font-family: 'Inter';
+    font-feature-settings: 'ss01' on, 'ss02' on, 'ss07' on, 'ss08' on, 'ss03' on;
   }
 
   p, p strong, td.content strong, div.footnote strong {
@@ -63,9 +79,10 @@
   }
 
   h1, h2, h3, #toctitle, .sidebarblock > .content > .title, h4, h5, h6 {
-    font-family: "Inter Variable";
+    font-family: 'Inter';
     font-weight: 400;
-    font-feature-settings: 'calt' on, 'dlig' on, 'tnum' on, 'frac' off, 'ss01' on, 'ss02' on, 'ss07' on, 'ss08' on, 'ss03' on;
+    font-feature-settings: 'ss01' on, 'ss02' on, 'ss07' on, 'ss08' on, 'ss03' on;
+    --tnum: tabular-nums;
   }
 
   .admonitionblock td.content > .title,
@@ -86,8 +103,9 @@
   .ulist > .title,
   .qlist > .title,
   .hdlist > .title {
-    font-family: "Inter Variable";
-    font-feature-settings: 'calt' on, 'dlig' on, 'tnum' on, 'frac' off, 'ss01' on, 'ss02' on, 'ss07' on, 'ss08' on, 'ss03' on;
+    font-family: 'Inter';
+    font-feature-settings: 'ss01' on, 'ss02' on, 'ss07' on, 'ss08' on, 'ss03' on;
+    --tnum: tabular-nums;
     font-weight: 500;
   }
 
@@ -127,7 +145,6 @@
   code, pre {
     font-family: "JetBrains Mono";
     font-feature-settings: 'calt' on,
-      'frac' off,
       'ss01' off,
       'ss02' on,
       'ss19' on,
@@ -140,7 +157,7 @@
   }
 
   samp {
-    font-family: "Inter Variable";
+    font-family: 'Inter';
     color: var(--yellow);
     padding: 0.1em 0.5ex;
   }
@@ -149,7 +166,6 @@
     font-family: "JetBrains Mono";
     font-feature-settings: 'calt' off,
       'dlig' off,
-      'frac' off,
       'ss01' off,
       'ss02' on,
       'ss19' on,
@@ -225,15 +241,16 @@
   .hdlist > .title
   {
     color: var(--yellow);
-    font-feature-settings: 'calt' on, 'dlig' on, 'tnum' on, 'frac' off, 'ss01' on, 'ss02' on, 'ss07' on, 'ss08' on, 'ss03' on;
+    font-feature-settings: 'ss01' on, 'ss02' on, 'ss07' on, 'ss08' on, 'ss03' on;
+    --tnum: tabular-nums;
   }
 
   .frac {
-    font-feature-settings: 'frac' on;
+    --frac: diagonal-fractions;
   }
 
   .tnum {
-    font-feature-settings: 'tnum' on;
+    --tnum: tabular-nums;
   }
 
   table {
