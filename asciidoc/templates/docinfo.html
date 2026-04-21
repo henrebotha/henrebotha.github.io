@@ -346,19 +346,25 @@
     color: var(--cyan);
     text-decoration: underline;
   }
-  a:hover {
-    color: var(--red);
-  }
-  a:not(h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a) {
+  a:not(code > a, h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a) {
     color: white;
     text-shadow: 0px 0px 6px var(--cyan);
+  }
+  code > a {
+    color: var(--light-black);
+  }
+  code > a:hover {
+    color: var(--black);
   }
   a > code {
     /* Reset the hyperlink shadow */
     text-shadow: none;
     box-shadow: 0px 0px 6px var(--cyan);
   }
-  a:hover:not(h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a) {
+  a:hover {
+    color: var(--red);
+  }
+  a:hover:not(code > a, h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a) {
     color: var(--cyan);
   }
   a > code:hover {
