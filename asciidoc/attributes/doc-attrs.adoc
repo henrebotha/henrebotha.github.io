@@ -1,6 +1,14 @@
 :webfonts: Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900%7CJetBrains+Mono:ital,wght@0,100..800;1,100..800
 :icons: font
 :noheader:
+:date-element-start:
+:date-element:
+:date-element-end:
+ifdef::date[]
+:date-element-start: pass:[<time class="posted-at">]
+:date-element: {date}
+:date-element-end: pass:[</time>]
+endif::date[]
 :docinfo: shared
 :docinfodir: {root}/asciidoc/templates
 :experimental:
