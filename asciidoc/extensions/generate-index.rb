@@ -1,12 +1,37 @@
 require 'asciidoctor/extensions'
 
+def parse_post(file_path)
+  head = File.readlines(file_path, chomp: true)
+    .take_while { |line| line != '' }
+
+  title, lines = head.slice_after(/^\= .+$/).to_a
+  title = title[0].gsub(/^\= /, '')
+
+  attributes = {}
+
+  lines.each do |line|
+    if line.start_with?(/:[^:]+:/)
+      name, value = line.split(' ', 2)
+      attributes[name.gsub(/(^:|:$)/, '').to_sym] = value
+    end
+  end
+
+  return {
+    title: title,
+    path: file_path.gsub(/$/, '[' + title + ']').gsub(/^src\//, ''),
+    attributes: attributes
+  }
+end
+
 def find_posts
   Dir.glob('src/posts/*.adoc')
     .reverse
     .map.with_index do |p, i|
-      title = File.open(p, &:readline).gsub(/^= /, '').strip
-      date = p.gsub(/^.*(\d{4}-\d{2}-\d{2}).*$/, '\1')
-      date + (i == 0 ? ' (latest): ' : ': ') + 'xref:' + p.gsub(/$/, '[' + title + ']').gsub(/^src\//, '')
+      parsed = parse_post(p)
+      title = parsed[:title]
+      date = parsed[:attributes][:date].match(/^\d{4}-\d{2}-\d{2}/)[0]
+      path = parsed[:path]
+      date + (i == 0 ? ' (latest): ' : ': ') + 'xref:' + path
     end.reverse
 end
 
