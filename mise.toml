@@ -1,11 +1,28 @@
 [tools]
 "gem:asciidoctor" = "latest"
+"gem:asciidoctor-reducer" = "latest"
+
+[tasks.preview]
+description = 'Show final adoc file after includes, before compilation'
+usage = '''
+arg "<file>" help="File to open" default="src/index.adoc"
+'''
+run = """
+cd $MISE_PROJECT_ROOT && \
+asciidoctor-reducer \
+  -a root=$(pwd) \
+  -a assets_root=/assets \
+  -r ./asciidoc/extensions/custom-macros.rb \
+  -r ./asciidoc/extensions/generate-index.rb \
+  $usage_file
+"""
 
 [tasks.build]
 description = 'Compile all adoc files'
 run = """
 cd $MISE_PROJECT_ROOT && \
 asciidoctor \
+  --verbose \
   -a root=$(pwd) \
   -a assets_root=/assets \
   -R src \
