@@ -2,13 +2,9 @@
 :icons: font
 :noheader:
 :nofooter:
-:date-element-start:
 :date-element:
-:date-element-end:
 ifdef::date[]
-:date-element-start: pass:[<time class="posted-at">]
-:date-element: {date}
-:date-element-end: pass:[</time>]
+:date-element: pass:a[<time class="posted-at">{date}</time>]
 endif::date[]
 :docinfo: shared
 :docinfodir: {root}/asciidoc/templates
