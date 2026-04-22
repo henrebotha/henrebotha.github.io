@@ -1,7 +1,7 @@
 = A Ruby execution path gotcha
+:date: 2015-07-01 18:00 +0200
 :layout: post
-:date: 2015-07-01 18:00:00
-:tags: [ruby]
+:tags: ruby
 include::{root}/src/_include/global.adoc[]
 
 The principle of least astonishment is a guiding philosophy in the design of computer systems.
