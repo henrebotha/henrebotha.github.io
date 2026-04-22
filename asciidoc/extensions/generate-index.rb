@@ -12,7 +12,13 @@ def parse_post(file_path)
   lines.each do |line|
     if line.start_with?(/:[^:]+:/)
       name, value = line.split(' ', 2)
-      attributes[name.gsub(/(^:|:$)/, '').to_sym] = value
+      name = name.gsub(/(^:|:$)/, '')
+      if name == 'tags'
+        value = value.split(/, ?/)
+      elsif name == 'date'
+        value = value.match(/^\d{4}-\d{2}-\d{2}/)[0]
+      end
+      attributes[name.to_sym] = value
     end
   end
 
@@ -23,16 +29,13 @@ def parse_post(file_path)
   }
 end
 
-def find_posts
+def parse_posts
   Dir.glob('src/posts/*.adoc')
-    .reverse
-    .map.with_index do |p, i|
-      parsed = parse_post(p)
-      title = parsed[:title]
-      date = parsed[:attributes][:date].match(/^\d{4}-\d{2}-\d{2}/)[0]
-      path = parsed[:path]
-      date + (i == 0 ? ' (latest): ' : ': ') + 'xref:' + path
-    end.reverse
+    .map { |p| parse_post(p) }
+end
+
+def make_xref(post, is_last)
+  post[:attributes][:date] + (is_last ? ' (latest): ' : ': ') + 'xref:' + post[:path]
 end
 
 Asciidoctor::Extensions.register do
@@ -42,11 +45,23 @@ Asciidoctor::Extensions.register do
 
       if doc.attr? 'generate-index'
         logger.info "Generating index for #{doc}"
-        posts = find_posts()
+        posts = parse_posts()
 
         list = Asciidoctor::List.new(doc, :ulist, attributes: { 'role' => 'tnum' })
-        list.style = 'no-bullet'
-        posts.each { |p| list << Asciidoctor::ListItem.new(list, p) }
+        list.style = 'unstyled'
+        posts.reverse.map.with_index do |post, index|
+          post[:litem] = Asciidoctor::ListItem.new(list, make_xref(post, index == 0))
+          post
+        end.reverse.each do |post|
+          taglist = Asciidoctor::List.new(list, :ulist, attributes: { 'role' => 'tags' })
+          taglist.style = 'inline'
+          post[:attributes][:tags].each do |tag|
+            taglist << Asciidoctor::ListItem.new(taglist, tag)
+          end
+          post[:litem] << taglist
+
+          list << post[:litem]
+        end
 
         doc.blocks << list
       end
