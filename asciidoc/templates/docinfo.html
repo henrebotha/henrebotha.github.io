@@ -52,9 +52,16 @@
     display: inline-block;
   }
 
-  .posted-at {
+  .posted-at, .updated-at, .updated-at summary {
     font-size: small;
     font-style: italic;
+  }
+
+  details.updated-at {
+    margin-left: 0;
+    /* Why these magic numbers? */
+    margin-bottom: 1.25em;
+    padding-left: 1.625em;
   }
 
   body, #toc.toc2 {
@@ -85,6 +92,7 @@
     background: var(--white);
     color: var(--black);
     word-spacing: revert;
+    padding: 0 .5ex;
   }
 
   .exampleblock :not(pre):not([class^=L]) > code, .sidebarblock :not(pre):not([class^=L]) > code {

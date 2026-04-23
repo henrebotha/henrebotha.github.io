@@ -8,7 +8,9 @@ class SampInlineMacro < Asciidoctor::Extensions::InlineMacroProcessor
   format :short
 
   def process parent, target, attrs
-    create_inline_pass parent, "<samp>#{target}</samp>", {}
+    create_inline_pass parent, <<~HTML.chomp, {}
+      <samp>#{target}</samp>
+    HTML
   end
 end
 
@@ -22,7 +24,9 @@ class VarInlineMacro < Asciidoctor::Extensions::InlineMacroProcessor
   format :short
 
   def process parent, target, attrs
-    create_inline_pass parent, "<var>#{target}</var>", {}
+    create_inline_pass parent, <<~HTML.chomp, {}
+      <var>#{target}</var>
+    HTML
   end
 end
 

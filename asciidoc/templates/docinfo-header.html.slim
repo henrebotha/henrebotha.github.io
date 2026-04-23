@@ -7,3 +7,11 @@ header id="header"
   h1 =doctitle
   - if date
     time.posted-at =date
+  - if updated
+    details class="updated-at"
+      summary Update history
+      ul
+        - for update in process_history()
+          li.tnum
+            time> =update[0]
+            ==update[1]
