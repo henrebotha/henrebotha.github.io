@@ -22,8 +22,8 @@ asciidoctor-reducer \
   -a root=$(pwd) \
   -a assets_root=/assets \
   -r ./asciidoc/extensions/converter.rb \
-  -r ./asciidoc/extensions/custom-macros.rb \
-  -r ./asciidoc/extensions/generate-index.rb \
+  -r ./asciidoc/extensions/custom_macros.rb \
+  -r ./asciidoc/extensions/generate_index.rb \
   $usage_file
 """
 
@@ -37,8 +37,8 @@ asciidoctor \
   -a assets_root=/assets \
   -R src \
   -r ./asciidoc/extensions/converter.rb \
-  -r ./asciidoc/extensions/custom-macros.rb \
-  -r ./asciidoc/extensions/generate-index.rb \
+  -r ./asciidoc/extensions/custom_macros.rb \
+  -r ./asciidoc/extensions/generate_index.rb \
   -D _site 'src/**/*.adoc'
 """
 

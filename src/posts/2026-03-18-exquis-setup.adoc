@@ -1,5 +1,5 @@
 = Exquis setup
-:date: 2026-03-19 14:45 +0200
+:date: 2026-03-18 18:45 +0200
 :layout: post
 :tags: music, quickie
 :stem:
