@@ -1,5 +1,6 @@
 = A Ruby execution path gotcha
 :date: 2015-07-01 18:00 +0200
+:updated: 2026-04-22 18:30 +0200 => 'Edit for readability'
 :layout: post
 :tags: ruby
 include::{root}/src/_include/global.adoc[]
@@ -71,8 +72,8 @@ foo
 
 This seems like a trivial convenience feature, but it's much more complicated than that, because it has implications for *parsing*.
 
-When your code gets read into the Ruby interpreter, it has to distinguish method calls from variable names in order to interpret your code correctly and unambiguously.
-So when it sees a token like `foo`, it has to decide: Is this a method call or a variable reference?
+When the Ruby interpreter reads your code, it has to distinguish method calls from variable names in order to interpret your code correctly and unambiguously.
+So when it sees a token like `foo`, it has to decide: Is this a method call, or a variable reference?
 When not given enough context (such as parentheses), it has to default to one option or the other — and there's a logical choice here.
 
 ****
@@ -86,23 +87,11 @@ Therefore, Ruby prefers to assume it's a variable.
 == Scope evaluation
 
 In order for the above to work, the interpreter needs to know which tokens are in scope at any given point.
-(This is because tokens — be they variable names or method names — must obey scoping rules.
-`ModuleOne#foo` is not necessarily the same thing as `ModuleOne::ModuleTwo#foo`.)
-*This means it has to run through all branches before starting execution*.
+*The only way to determine this is to run through all branches before starting execution*.
 
 So, when Ruby parses our code, it runs through all branches, gets to a variable name `foo`, sees that we are assigning to it, realises it is therefore a variable name, and instantiates it with the value `nil`.
 
 Here's why that's such a bastard.
-
-[source,ruby]
-----
-def foo:
-  {bar: 'baz'}
-end
-foo = {} if foo.nil?
-----
-
-Let's rewrite it to make it a little clearer what's happening here.
 
 [source,ruby]
 ----
@@ -117,7 +106,7 @@ end
 Even though line 5 will never execute — because the method `foo` will never return nil — the simple fact that `foo =` was ever written down will mean that `foo` is hereafter treated as a variable name.
 Attempting to call your method `foo` without parentheses explicitly appended will yield a `nil` value every time — and ironically, *this is the very behaviour we are attempting to prevent in lines 4 through 6*.
 
-The takeaway here is this: If you ever use a token on the left-hand side of an assignment — _even an assignment that can't happen_ — that token, on its own, references a variable, and that can cause headaches when you're trying to access a method, or expecting a variable to not exist.
+The takeaway here is this: If you ever use a token on the left-hand side of an assignment — _even an assignment that can't happen_ — that token, on its own, references a variable, which can cause headaches when you're trying to access a method, or expecting a variable to not exist.
 
 == Bonus
 

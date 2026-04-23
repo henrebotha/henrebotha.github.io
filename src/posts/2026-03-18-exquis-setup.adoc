@@ -1,5 +1,6 @@
 = Exquis setup
 :date: 2026-03-18 18:45 +0200
+:updated: 2026-04-16 10:30 +0200 => 'Reference Maupin et al & organise content better'
 :layout: post
 :tags: music, quickie
 :stem:

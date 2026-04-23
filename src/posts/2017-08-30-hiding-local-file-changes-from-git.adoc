@@ -1,5 +1,6 @@
 = Hiding local file changes from git
 :date: 2017-08-30 15:00 +0200
+:updated: 2026-04-22 18:30 +0200 => 'Improve code examples'
 :layout: post
 :tags: git, quickie
 include::{root}/src/_include/global.adoc[]
@@ -10,7 +11,7 @@ However, now every time I do `git status`, I get this.
 
 [source,shell]
 ----
-$ gst
+$ git status
 On branch FE-1169_book_confirm_info
 Changes not staged for commit:
   (use "git add <file>..." to update what will be committed)
@@ -22,7 +23,7 @@ no changes added to commit (use "git add" and/or "git commit -a")
 ----
 
 This is annoying.
-That "modified" file is not actually modified in the sense of version control — I don't plan to commit my changes later and push them to the upstream repo.
+That "modified" file is not actually modified in the sense of version control: I don't plan to commit my changes later and push them to the upstream repo.
 I don't want to see it when I do `git status`, and I especially don't want to add the changes when I do `git add`.
 
 So I've found a neat way to work around this.
@@ -30,14 +31,14 @@ So I've found a neat way to work around this.
 . `git update-index --skip-worktree src/app/price/confirmation/confirmation-model.js` will "hide" the file from git; it will no longer show up as a file that I've changed.
   If the file gets changed remotely and I do `git pull`, git will give me a conflict message and explain what needs to be done to resolve it.
   And `git reset --hard` will not reset the file, allowing the changes to persist for a long time (e.g. across branches).
-. To view a list of all files I've hidden in this way, I can just do `git ls-files -v . | grep ^S`.
+. To view a list of all files I've hidden in this way, I can just do `git ls-files -v . | grep '^S'`.
   All the files listed with status code `S` (for `skip-worktree`) will be displayed.
 . To "unhide" a file, I can simply do `git update-index --no-skip-worktree src/app/price/confirmation/confirmation-model.js`.
 
 == How is this different to .gitignore?
 
 The most common way to "hide" files is to add them to `.gitignore`.
-This won't work for this case: The file I'm editing is already tracked in git, which means changes will still show up in `git status`.
+That won't work for this case: The file I'm editing is already tracked in git, which means changes will still show up in `git status`.
 
 `.gitignore` is intended for things like build artifacts, which shouldn't be committed to the repo _at all_.
 
@@ -51,17 +52,18 @@ Critically, operations like `git pull` are very likely to reset this flag and di
 
 == Tips
 
-If you plan on using these, I recommend you add some aliases to your `.zshrc`/`.bashrc` file.
+If you plan on using these, I recommend you add some aliases to your `.gitconfig` file.
 
-[source,shell]
+[source,ini]
 ----
-alias ghide='git update-index --skip-worktree'
-alias gunhide='git update-index --no-skip-worktree'
-alias ghidden='git ls-files -v . | grep ^S'
+[alias]
+	hide = update-index --skip-worktree
+	unhide = update-index --no-skip-worktree
+	hidden = ! git ls-files -v . | grep '^S' | awk '{ print $2 }'
 ----
 
-Then you can do `ghide path/to/file` to hide, `gunhide path/to/file` to unhide, and `ghidden` to list all hidden files.
+Then you can do `git hide path/to/file` to hide, `git unhide path/to/file` to unhide, and `git hidden` to list all hidden files.
 
 I hope you find this useful!
-Do remember, if you are going to use this, just do `ghidden` every so often to check whether you haven't forgotten about a hidden file.
+Do remember, if you are going to use this, just do `git hidden` every so often to check whether you haven't forgotten about a hidden file.
 (I'm still looking for a clever way to show this in `git status`…)
