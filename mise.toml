@@ -1,6 +1,12 @@
 [tools]
-"gem:asciidoctor" = "latest"
-"gem:asciidoctor-reducer" = "latest"
+ruby = 'latest'
+
+[tasks.install]
+run = """
+cd $MISE_PROJECT_ROOT && \
+gem install bundler && \
+bundle install
+"""
 
 [tasks.preview]
 description = 'Show final adoc file after includes, before compilation'
@@ -12,6 +18,7 @@ cd $MISE_PROJECT_ROOT && \
 asciidoctor-reducer \
   -a root=$(pwd) \
   -a assets_root=/assets \
+  -r ./asciidoc/extensions/converter.rb \
   -r ./asciidoc/extensions/custom-macros.rb \
   -r ./asciidoc/extensions/generate-index.rb \
   $usage_file
@@ -26,9 +33,9 @@ asciidoctor \
   -a root=$(pwd) \
   -a assets_root=/assets \
   -R src \
+  -r ./asciidoc/extensions/converter.rb \
   -r ./asciidoc/extensions/custom-macros.rb \
   -r ./asciidoc/extensions/generate-index.rb \
-  -E slim \
   -D _site 'src/**/*.adoc'
 """
 

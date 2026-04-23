@@ -29,6 +29,7 @@ jobs:
 
       - name: Build AsciiDoc files
         run: |
+          mise r install
           mkdir -p _site
           mise r build
           cp -r css _site/ 2>/dev/null || true
