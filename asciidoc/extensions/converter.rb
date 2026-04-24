@@ -4,6 +4,8 @@ require 'tilt/slim'
 class MyHtml5Converter < (Asciidoctor::Converter.for 'html5')
   register_for 'html5'
 
+  LF = ?\n
+
   attr_accessor :doc
   attr_accessor :processed
 
@@ -18,6 +20,73 @@ class MyHtml5Converter < (Asciidoctor::Converter.for 'html5')
       self.processed = render_header(self.doc, self.processed)
     end
     self.processed
+  end
+
+  def convert_ulist(node)
+    result = []
+    id_attribute = node.id ? %( id="#{node.id}") : ''
+    div_classes = ['ulist', node.style, node.role].compact
+    marker_checked = marker_unchecked = ''
+    ul_classes = []
+    if (checklist = node.option? 'checklist')
+      div_classes.unshift div_classes.shift, 'checklist'
+      ul_classes << 'checklist'
+      if node.option? 'interactive'
+        if @xml_mode
+          marker_checked = '<input type="checkbox" data-item-complete="1" checked="checked"/> '
+          marker_unchecked = '<input type="checkbox" data-item-complete="0"/> '
+        else
+          marker_checked = '<input type="checkbox" data-item-complete="1" checked> '
+          marker_unchecked = '<input type="checkbox" data-item-complete="0"> '
+        end
+      elsif node.document.attr? 'icons', 'font'
+        marker_checked = '<i class="fa fa-check-square-o"></i> '
+        marker_unchecked = '<i class="fa fa-square-o"></i> '
+      else
+        marker_checked = '&#10003; '
+        marker_unchecked = '&#10063; '
+      end
+    elsif node.style
+      ul_classes << node.style
+    end
+    unless node.attributes['options'] && node.attributes['options']['nodiv']
+      result << %(<div#{id_attribute} class="#{div_classes.join ' '}">)
+    end
+    result << %(<div class="title">#{node.title}</div>) if node.title?
+    if node.attributes['options'] && node.attributes['options']['nodiv']
+      result << %(<ul#{id_attribute} class="#{(div_classes + ul_classes).join(' ')}">)
+    else
+      result << %(<ul class="#{(ul_classes).join(' ')}">)
+    end
+
+    node.items.each do |item|
+      if item.id
+        result << %(<li id="#{item.id}"#{item.role ? %( class="#{item.role}") : ''}>)
+      elsif item.role
+        result << %(<li class="#{item.role}">)
+      else
+        result << '<li>'
+      end
+      if checklist && (item.attr? 'checkbox')
+        if node.attributes['options'] && node.attributes['options']['nopara']
+          result << %(#{(item.attr? 'checked') ? marker_checked : marker_unchecked}#{item.text})
+        else
+          result << %(<p>#{(item.attr? 'checked') ? marker_checked : marker_unchecked}#{item.text}</p>)
+        end
+      else
+        if node.attributes['options'] && node.attributes['options']['nopara']
+          result << %(#{item.text})
+        else
+          result << %(<p>#{item.text}</p>)
+        end
+      end
+      result << item.content if item.blocks?
+      result << '</li>'
+    end
+
+    result << '</ul>'
+    result << '</div>' unless node.attributes['options'] && node.attributes['options']['nodiv']
+    result.join LF
   end
 
   private

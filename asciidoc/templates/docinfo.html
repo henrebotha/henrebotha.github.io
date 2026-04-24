@@ -150,7 +150,17 @@
     font-weight: 500;
   }
 
-  .tags ul li p {
+  ul.tags.inline {
+    margin-left: 0;
+    margin-top: -0.5em;
+  }
+
+  ul.tags.inline li {
+    margin-left: 0;
+    margin-right: 0.4em;
+  }
+
+  .tags li {
     background-color: var(--light-black);
     color: var(--white);
     border-radius: 4px;
@@ -159,7 +169,7 @@
     font-size: .8em;
   }
 
-  .tags ul li p:before {
+  .tags li:before {
     content: '# ';
   }
 

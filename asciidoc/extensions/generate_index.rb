@@ -22,7 +22,7 @@ def parse_post(file_path)
     end
   end
 
-  return {
+  {
     title: title,
     path: file_path.gsub(/$/, '[' + title + ']').gsub(/^src\//, ''),
     attributes: attributes
@@ -39,6 +39,9 @@ def make_xref(post, is_last)
 end
 
 Asciidoctor::Extensions.register do
+  # TODO: Shouldn't this be a block macro, rather? Then we can position it
+  # arbitrarily. And possibly even (if we're very lucky with how Asciidoctor
+  # works) avoid having to parse file frontmatter ourselves.
   tree_processor do
     process do |doc|
       singleton_class.include Asciidoctor::Logging
@@ -47,23 +50,23 @@ Asciidoctor::Extensions.register do
         logger.info "Generating index for #{doc}"
         posts = parse_posts()
 
-        list = Asciidoctor::List.new(doc, :ulist, attributes: { 'role' => 'tnum' })
-        list.style = 'unstyled'
+        post_list = Asciidoctor::List.new(doc, :ulist, attributes: { 'role' => 'post-list tnum' })
+        post_list.style = 'unstyled'
         posts.reverse.map.with_index do |post, index|
-          post[:litem] = Asciidoctor::ListItem.new(list, make_xref(post, index == 0))
+          post[:litem] = Asciidoctor::ListItem.new(post_list, make_xref(post, index == 0))
           post
         end.reverse.each do |post|
-          taglist = Asciidoctor::List.new(list, :ulist, attributes: { 'role' => 'tags' })
-          taglist.style = 'inline'
+          tag_list = Asciidoctor::List.new(post_list, :ulist, attributes: { 'role' => 'tags', 'options' => { 'nopara' => true, 'nodiv' => true } })
+          tag_list.style = 'inline'
           post[:attributes][:tags].each do |tag|
-            taglist << Asciidoctor::ListItem.new(taglist, tag)
+            tag_list << Asciidoctor::ListItem.new(tag_list, tag)
           end
-          post[:litem] << taglist
+          post[:litem] << tag_list
 
-          list << post[:litem]
+          post_list << post[:litem]
         end
 
-        doc.blocks << list
+        doc << post_list
       end
     end
   end
