@@ -64,6 +64,15 @@
     padding-left: 1.625em;
   }
 
+  /* Prevent scrollbar from causing layout shift */
+  html {
+    scrollbar-gutter: stable;
+    overflow: auto;
+  }
+  body {
+    background-color: var(--black);
+  }
+
   body, #toc.toc2 {
     background-repeat: repeat;
     background-attachment: fixed;
