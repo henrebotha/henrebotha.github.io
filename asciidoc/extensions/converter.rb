@@ -15,6 +15,10 @@ class MyHtml5Converter < (Asciidoctor::Converter.for 'html5')
     self.doc = doc
     self.processed = super
 
+    # if self.doc.attributes['docfile'].match(/index\.(html|adoc)$/)
+    #   self.processed = insert_scroll(self.doc, self.processed)
+    # end
+
     # There has to be a better way to determine if this is a "full" doc or an include
     unless self.doc.attributes['docdir'].match(/\b_include\b/)
       self.processed = render_header(self.doc, self.processed)
@@ -90,6 +94,23 @@ class MyHtml5Converter < (Asciidoctor::Converter.for 'html5')
   end
 
   private
+
+  def insert_scroll(doc, processed)
+    parts = processed.partition(/<\/head>/)
+    parts[0] + <<~JS + parts[1] + parts[2]
+      <script>
+        document.addEventListener('DOMContentLoaded',
+          () => {
+            let container = document.getElementsByClassName('post-list')[0]
+            container.scroll({
+              top: container.scrollHeight,
+              behavior: "smooth",
+            })
+          }
+        );
+      </script>
+    JS
+  end
 
   def render_header(doc, processed)
     template = Tilt.new('asciidoc/templates/docinfo-header.html.slim')

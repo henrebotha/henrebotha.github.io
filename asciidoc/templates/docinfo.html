@@ -64,6 +64,16 @@
     padding-left: 1.625em;
   }
 
+  /*.post-list {
+    max-height: 8em; /*delete me*//*
+    overflow-y: scroll;
+    scroll-snap-type: y;
+  }
+
+  .post-list ul li {
+    scroll-snap-align: start;
+  }*/
+
   /* Prevent scrollbar from causing layout shift */
   html {
     scrollbar-gutter: stable;
@@ -462,3 +472,11 @@
     white-space: nowrap;
   }
 </style>
+<!-- <script> -->
+<!--   document.addEventListener('DOMContentLoaded', -->
+<!--     () => window.scroll({ -->
+<!--       top: document.body.scrollHeight, -->
+<!--       behavior: "smooth", -->
+<!--     }) -->
+<!--   ); -->
+<!-- </script> -->
