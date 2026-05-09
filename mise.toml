@@ -5,9 +5,13 @@ compile = false
 ruby = 'latest'
 
 [tasks.install]
+usage='''
+flag "--deployment" help="Set bundler to use deployment option" default="false"
+'''
 run = """
 cd $MISE_PROJECT_ROOT && \
 gem install bundler && \
+([[ "${usage_deployment?}" == "true" ]] && bundle config set deployment true || :) && \
 bundle install
 """
 
