@@ -1,6 +1,6 @@
 = Exquis setup
 :date: 2026-03-18 18:45 +0200
-:updated: 2026-04-16 10:30 +0200 => 'Reference Maupin et al & organise content better'
+:updated: 2026-04-16 10:30 +0200 => 'Reference Maupin et al & organise content better', 2026-05-09 10:30 +0200 => 'Add general MIDI percussion diagram'
 :layout: post
 :tags: music, quickie
 :stem:
@@ -43,6 +43,24 @@ h| Hardware
 h| Adjust sensitivity
 | ⚙︎ + click & turn 4
 |===
+
+==== General MIDI percussion map
+
+<<percussion>>
+
+----
+⬢ ⬢ ⬢ ⬢ ⬢ ⬢ hi block, lo block, mute cuica, cuica, mute tri, tri
+ ⬢ ⬢ ⬢ ⬢ ⬢  short whistle, long whistle, short guiro, long guiro, claves
+⬢ ⬢ ⬢ ⬢ ⬢ ⬢ hi timbale, lo timbale, hi agogo, lo agogo, hi bongo, maracas
+ ⬢ ⬢ ⬢ ⬢ ⬢  hi bongo, lo bongo, mute hi conga, hi conga, lo conga
+⬢ ⬡ ⬡ ⬡ ⬡ ⬢ cowbell; vibraslap
+ ⬡ ⬢ ⬢ ⬢ ⬡  splash, crash 2, ride 2
+⬢ ⬢ ⬢ ⬢ ⬢ ⬢ tamb, crash 1, ride 1, ride bell, china, tamb
+ ⬢ ⬢ ⬢ ⬢ ⬢  cl hh, ped hh, open hh, ped hh, cl hh
+⬢ ⬢ ⬢ ⬢ ⬢ ⬢ toms lo to hi
+ ⬢ ⬢ ⬡ ⬢ ⬢  side stick, ac snare; clap, el snare
+⬡ ⬢ ⬡ ⬡ ⬢ ⬡ ac bd; bd
+----
 
 === Buttons
 
@@ -151,3 +169,4 @@ The default Exquis layout is thus stem:[H: +1, +7], which can be visualised as f
 == References
 
 * [[[iso]]] Steven Maupin, David Gerhard, & Brett Park. (2011, July 6). Isomorphic Tessellations for Musical Keyboards. 8th Sound and Music Computing Conference (SMC2011), Padova, Italy. https://doi.org/10.5281/zenodo.849954
+* [[[percussion]]] https://musescore.org/sites/musescore.org/files/General%20MIDI%20Standard%20Percussion%20Set%20Key%20Map.pdf
